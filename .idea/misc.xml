@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/activity_2.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/activity_second_tab.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/card_layout.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/collection_demo.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/first_tab.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/fragment_blank.xml" value="0.22826086956521738" />
@@ -14,7 +16,8 @@
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/fragment_tab1.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/fragment_tab2.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/fragment_tab3.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/second_tab.xml" value="0.20384615384615384" />
+        <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/gallery_item.xml" value="0.3609375" />
+        <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/second_tab.xml" value="0.264" />
         <entry key="..\:/Users/taeyo/AndroidStudioProjects/madcamp1w/app/src/main/res/layout/third_tab.xml" value="0.22826086956521738" />
       </map>
     </option>
