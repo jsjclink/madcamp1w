@@ -9,17 +9,15 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/layout_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:tabGravity="center"
-        app:tabMode="scrollable"
-        app:tabTextColor="#000000"
-        app:tabSelectedTextColor="#FF0000"
-        app:tabIndicatorColor="#00FF00" />
+        android:id="@+id/tab_layout"
+        style="@style/Widget.MaterialComponents.TabLayout.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pager_content"
+        android:id="@+id/mypager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout >
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

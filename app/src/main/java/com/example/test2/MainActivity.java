@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager = findViewById(R.id.pager_content);
+        viewPager = findViewById(R.id.mypager);
         pagerAdapter = new MyPagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout =(TabLayout) findViewById(R.id.layout_tab);
+        TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
     }
 
