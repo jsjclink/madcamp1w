@@ -9,13 +9,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
     private static final int NUM_PAGES = 3;
-    //The pager widget, which handles animation and allows swiping horizontally to access previous and next wizard steps.
     public static ViewPager2 viewPager;
-    // The pager adapter, which provides the pages to the view pager widget.
     private FragmentStateAdapter pagerAdapter;
-    // Array of tab titles
     private String[] titles = new String[]{"전화번호부", "사진첩", "단축키"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            super.onBackPressed();
+        } else {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
+    }
+
     private class MyPagerAdapter extends FragmentStateAdapter {
 
         public MyPagerAdapter(FragmentActivity fa) {
@@ -38,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment createFragment(int pos) {
             switch (pos) {
                 case 0: {
-                    return FirstTab.newInstance("fragment 1");
+                    return FirstTab.newInstance(getJsonString());
                 }
                 case 1: {
 
@@ -48,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     return ThirdTab.newInstance("fragment 3");
                 }
                 default:
-                    return FirstTab.newInstance("fragment 1, Default");
+                    return FirstTab.newInstance(getJsonString());
             }
         }
 
@@ -58,17 +67,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public void onBackPressed() {
-        if (viewPager.getCurrentItem() == 0) {
-// If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.d
-            super.onBackPressed();
-        } else {
-// Otherwise, select the previous step.
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+    public String getJsonString(){
+        String json = "";
+        try{
+            InputStream is = getAssets().open("phone.json");
+            int fileSize = is.available();
+            byte[] buffer = new byte[fileSize];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
         }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        return json;
     }
 
 }
