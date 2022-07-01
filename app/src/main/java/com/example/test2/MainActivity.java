@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
     private String[] titles = new String[]{"전화번호부", "사진첩", "단축키"};
+    private int[] tabIcons = new int[]{R.drawable.tabicon1, R.drawable.tabicon2, R.drawable.tabicon3};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
+        setTabIcons(tabLayout);
+        getSupportActionBar().hide();
     }
 
     @Override
@@ -79,4 +82,9 @@ public class MainActivity extends AppCompatActivity {
         return json;
     }
 
+    private void setTabIcons(TabLayout tabLayout) {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+    }
 }
