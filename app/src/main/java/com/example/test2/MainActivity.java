@@ -37,16 +37,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment createFragment(int pos) {
             switch (pos) {
-                case 0: {
+                case 0:
                     return FirstTab.newInstance("fragment 1");
-                }
-                case 1: {
-
+                case 1:
                     return SecondTab.newInstance("fragment 2");
-                }
-                case 2: {
+                case 2:
                     return ThirdTab.newInstance("fragment 3");
-                }
                 default:
                     return FirstTab.newInstance("fragment 1, Default");
             }
