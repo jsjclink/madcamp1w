@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class PhoneNumberDetailActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
