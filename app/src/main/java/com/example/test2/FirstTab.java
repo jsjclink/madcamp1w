@@ -1,5 +1,6 @@
 package com.example.test2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -64,6 +65,16 @@ public class FirstTab extends Fragment  {
         public void onBindViewHolder(@NonNull NN_RecyclerViewAdapter.MyViewHolder holder, int position) {
             holder.tvName.setText(nnModels.get(position).getName());
             holder.tvNumber.setText(nnModels.get(position).getNumber());
+            holder.itemView.setTag(position);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), PhoneNumberDetailActivity.class);
+                    intent.putExtra("name", nnModels.get(position).getName());
+                    intent.putExtra("number", nnModels.get(position).getNumber());
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
