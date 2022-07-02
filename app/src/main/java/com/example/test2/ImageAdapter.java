@@ -1,6 +1,7 @@
 package com.example.test2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -39,6 +40,15 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         imageView.setImageResource(mThumbIds[position]);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, GalleryDetailActivity.class);
+                intent.putExtra("name", "drawable://" + mThumbIds[position]);
+                intent.putExtra("picture", mThumbIds[position]);
+                mContext.startActivity(intent);
+            }
+        });
         return imageView;
     }
 

@@ -70,8 +70,10 @@ public class FirstTab extends Fragment  {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), PhoneNumberDetailActivity.class);
+                    int position = holder.getBindingAdapterPosition();
                     intent.putExtra("name", nnModels.get(position).getName());
                     intent.putExtra("number", nnModels.get(position).getNumber());
+                    intent.putExtra("position", position);
                     startActivity(intent);
                 }
             });

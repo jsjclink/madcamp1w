@@ -17,13 +17,13 @@ public class SecondTab extends Fragment {
         View v = inflater.inflate(R.layout.second_tab, container, false);
 
         GridView gridview = (GridView) v.findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(getActivity().getApplicationContext()));
+        gridview.setAdapter(new ImageAdapter(getActivity()));
 
         return v;
     }
 
     public static SecondTab newInstance(String text) {
-        SecondTab  f = new SecondTab();
+        SecondTab f = new SecondTab();
         return f;
     }
 }
