@@ -19,7 +19,10 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -51,8 +54,9 @@ public class SecondTab extends Fragment {
 
         View v = inflater.inflate(R.layout.second_tab, container, false);
 
-        GridView gridview = (GridView) v.findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(getActivity()));
+        RecyclerView secondTabRV = v.findViewById(R.id.Tab2RV);
+        secondTabRV.setAdapter(new SecondTabRVAdapter());
+        secondTabRV.setLayoutManager(new GridLayoutManager(getActivity(), 3));
 
         // Setting floating action button to fetch image from gallery
         ActivityResultLauncher<String> mGetContent =
@@ -61,7 +65,7 @@ public class SecondTab extends Fragment {
                     @Override
                     public void onActivityResult(Uri uri) {
                         pictures.add(uri);
-                        gridview.requestLayout();
+                        secondTabRV.requestLayout();
                     }
                 });
         FloatingActionButton tab2AddPicture = v.findViewById(R.id.Tab2AddPictureFB);
@@ -80,49 +84,47 @@ public class SecondTab extends Fragment {
         return f;
     }
 
-    public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
+    private class SecondTabRVAdapter
+            extends RecyclerView.Adapter<SecondTab.SecondTabRVAdapter.ViewHolder> {
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView picture;
 
-        public ImageAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return pictures.size();
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        // create a new ImageView for each item referenced by the Adapter
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if (convertView == null) {  // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(350, 350));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setBackgroundColor(Color.BLACK);
-                imageView.setPadding(4, 4, 4, 4);
-            } else {
-                imageView = (ImageView) convertView;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                picture = itemView.findViewById(R.id.phoneNumberDetailPictureIV);
             }
+        }
 
-            imageView.setImageURI(pictures.get(position));
-            imageView.setOnClickListener(new View.OnClickListener() {
+        @NonNull
+        @Override
+        public SecondTab.SecondTabRVAdapter.ViewHolder
+        onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            View view = inflater.inflate(R.layout.phone_number_detail_picture_cell,
+                    parent, false);
+            return new SecondTab.SecondTabRVAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(
+                @NonNull SecondTab.SecondTabRVAdapter.ViewHolder holder,
+                int position) {
+            holder.picture.setImageURI(pictures.get(position));
+            holder.picture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mContext, GalleryDetailActivity.class);
-                    intent.putExtra("name", "drawable://" + mThumbIds[position]);
+                    Intent intent = new Intent(getActivity(), GalleryDetailActivity.class);
+                    int position = holder.getLayoutPosition();
+                    intent.putExtra("name", pictures.get(position).toString());
                     intent.putExtra("picture", mThumbIds[position]);
-                    mContext.startActivity(intent);
+                    startActivity(intent);
                 }
             });
-            return imageView;
+        }
+
+        @Override
+        public int getItemCount() {
+            return pictures.size();
         }
     }
 }
