@@ -1,6 +1,19 @@
 package com.example.test2;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -11,12 +24,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final int NUM_PAGES = 3;
     public static ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
     private String[] titles = new String[]{"전화번호부", "사진첩", "단축키"};
+    private int[] tabIcons = new int[]{R.drawable.tabicon1, R.drawable.tabicon2, R.drawable.tabicon3};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
+        setTabIcons(tabLayout);
+//        getSupportActionBar().hide();
     }
 
     @Override
@@ -46,16 +63,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment createFragment(int pos) {
             switch (pos) {
-                case 0: {
-                    return FirstTab.newInstance(getJsonString());
-                }
-                case 1: {
-
+                case 1:
                     return SecondTab.newInstance("fragment 2");
-                }
-                case 2: {
+                case 2:
                     return ThirdTab.newInstance("fragment 3");
-                }
                 default:
                     return FirstTab.newInstance(getJsonString());
             }
@@ -83,4 +94,9 @@ public class MainActivity extends AppCompatActivity {
         return json;
     }
 
+    private void setTabIcons(TabLayout tabLayout) {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+    }
 }
