@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PhoneNumberDetailActivity extends AppCompatActivity {
+    private int personalNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
 
         String name = getIntent().getStringExtra("name");
         String number = getIntent().getStringExtra("number");
-        int position = getIntent().getIntExtra("position", 0);
+        personalNumber = getIntent().getIntExtra("position", 0);
 
         TextView nameText = findViewById(R.id.DetailName);
         TextView numberText = findViewById(R.id.DetailNumber);
@@ -78,12 +79,22 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
         public void onBindViewHolder(
                 @NonNull PhoneNumberDetailActivity.PhoneNumberDetailPicturesRVAdapter.ViewHolder holder,
                 int position) {
-            holder.picture.setImageResource(mThumbIds[position]);
+            holder.picture.setImageResource(mThumbIds[personalNumber]);
+            holder.picture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(PhoneNumberDetailActivity.this,
+                            GalleryDetailActivity.class);
+                    intent.putExtra("name", "drawable://" + mThumbIds[personalNumber]);
+                    intent.putExtra("picture", mThumbIds[personalNumber]);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
         public int getItemCount()  {
-            return mThumbIds.length;
+            return 1;
         }
 
         // references to our images

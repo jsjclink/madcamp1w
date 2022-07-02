@@ -1,6 +1,19 @@
 package com.example.test2;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -11,6 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final int NUM_PAGES = 3;
@@ -28,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
         setTabIcons(tabLayout);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
     }
 
     @Override
@@ -49,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment createFragment(int pos) {
             switch (pos) {
-                case 0:
-                    return FirstTab.newInstance(getJsonString());
                 case 1:
                     return SecondTab.newInstance("fragment 2");
                 case 2:
