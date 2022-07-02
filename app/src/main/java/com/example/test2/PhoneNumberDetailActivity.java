@@ -45,8 +45,6 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_number_detail);
 
-        String name = getIntent().getStringExtra("name");
-        String number = getIntent().getStringExtra("number");
         personalNumber = getIntent().getIntExtra("position", 0);
         nnModel = (NameNumberModel) getIntent().getSerializableExtra("nnModel");
 
@@ -105,8 +103,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                     int position = holder.getBindingAdapterPosition();
                     Intent intent = new Intent(PhoneNumberDetailActivity.this,
                             GalleryDetailActivity.class);
-                    intent.putExtra("name", nnModel.getPictures().get(position));
-                    intent.putExtra("picture", mThumbIds[personalNumber]);
+                    intent.putExtra("pictureUri", nnModel.getPictures().get(position));
                     startActivity(intent);
                 }
             });

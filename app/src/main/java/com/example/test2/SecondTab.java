@@ -115,8 +115,7 @@ public class SecondTab extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), GalleryDetailActivity.class);
                     int position = holder.getLayoutPosition();
-                    intent.putExtra("name", pictures.get(position).toString());
-                    intent.putExtra("picture", mThumbIds[position]);
+                    intent.putExtra("pictureUri", pictures.get(position).toString());
                     startActivity(intent);
                 }
             });
