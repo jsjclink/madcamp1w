@@ -36,6 +36,7 @@ public class FirstTab extends Fragment  {
         NN_RecyclerViewAdapter adapter = new NN_RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        v.findViewById(R.id.mCardView);
 
         return v;
     }
