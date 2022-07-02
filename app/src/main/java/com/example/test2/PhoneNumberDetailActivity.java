@@ -39,6 +39,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
     };
     private ArrayList<Uri> pictures;
     private int personalNumber;
+    private NameNumberModel nnModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +48,14 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("name");
         String number = getIntent().getStringExtra("number");
         personalNumber = getIntent().getIntExtra("position", 0);
+        nnModel = (NameNumberModel) getIntent().getSerializableExtra("nnModel");
 
         TextView nameText = findViewById(R.id.DetailName);
         TextView numberText = findViewById(R.id.DetailNumber);
         RecyclerView pictures = findViewById(R.id.PhoneNumberDetailRV);
 
-        nameText.setText(name);
-        numberText.setText(number);
+        nameText.setText(nnModel.getName());
+        numberText.setText(nnModel.getNumber());
 
         pictures.setAdapter(new PhoneNumberDetailPicturesRVAdapter());
         pictures.setLayoutManager(new GridLayoutManager(this, 3));
@@ -96,13 +98,14 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
         public void onBindViewHolder(
                 @NonNull PhoneNumberDetailActivity.PhoneNumberDetailPicturesRVAdapter.ViewHolder holder,
                 int position) {
-            holder.picture.setImageResource(mThumbIds[personalNumber]);
+            holder.picture.setImageURI(Uri.parse(nnModel.getPictures().get(position)));
             holder.picture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int position = holder.getBindingAdapterPosition();
                     Intent intent = new Intent(PhoneNumberDetailActivity.this,
                             GalleryDetailActivity.class);
-                    intent.putExtra("name", "drawable://" + mThumbIds[personalNumber]);
+                    intent.putExtra("name", nnModel.getPictures().get(position));
                     intent.putExtra("picture", mThumbIds[personalNumber]);
                     startActivity(intent);
                 }
@@ -111,7 +114,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount()  {
-            return 1;
+            return nnModel.getPictures().size();
         }
     }
 }
