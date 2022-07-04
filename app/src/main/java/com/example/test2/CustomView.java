@@ -20,8 +20,8 @@ public class CustomView extends View {
     Paint paint;
     ArrayList<PathInfo> data;
     PathInfo pathInfo;
-    Bitmap backgroundImange;
-    boolean enableBG = true;
+    Bitmap backgroundImange = null;
+    boolean enableBG = false;
     ArrayList<PathInfo> poppedData;
     int curColor;
     float curR;
@@ -65,7 +65,7 @@ public class CustomView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(enableBG) canvas.drawBitmap(backgroundImange, 0, 0, null);
+        if(enableBG && backgroundImange != null) canvas.drawBitmap(backgroundImange, 0, 0, null);
         for (PathInfo p : tmpData){
             canvas.drawPath(p, p.getPaint());
         }
@@ -143,6 +143,7 @@ public class CustomView extends View {
 
     public void setBackgroundImage(Bitmap bitmap) {
         this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1000, true);
+        this.enableBG = true;
     }
     public void flipBackground(){
         enableBG = enableBG ? false : true;
