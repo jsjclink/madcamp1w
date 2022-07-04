@@ -1,22 +1,14 @@
 package com.example.test2;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -42,7 +34,7 @@ public class SecondTab extends Fragment {
             R.drawable.sample_17, R.drawable.sample_18,
             R.drawable.sample_19, R.drawable.sample_20
     };
-    private ArrayList<Uri> pictures;
+    public static ArrayList<Uri> pictures;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,12 +51,11 @@ public class SecondTab extends Fragment {
         secondTabRV.setLayoutManager(new GridLayoutManager(getActivity(), 3));
 
         // Setting floating action button to fetch image from gallery
-        ActivityResultLauncher<String> mGetContent =
-                registerForActivityResult(new ActivityResultContracts.GetContent(),
-                new ActivityResultCallback<Uri>() {
-                    @Override
-                    public void onActivityResult(Uri uri) {
-                        pictures.add(uri);
+        ActivityResultLauncher<Intent> mGetContent =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        pictures.add(result.getData().getData());
                         secondTabRV.requestLayout();
                     }
                 });
@@ -72,11 +63,18 @@ public class SecondTab extends Fragment {
         tab2AddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetContent.launch("image/*");
+                Intent fetchPicture = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                mGetContent.launch(fetchPicture.setType("image/*"));
             }
         });
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((RecyclerView)getView().findViewById(R.id.Tab2RV)).getAdapter().notifyDataSetChanged();
     }
 
     public static SecondTab newInstance(String text) {

@@ -1,38 +1,27 @@
 package com.example.test2;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.DimenRes;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Rect;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.DisplayMetrics;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PhoneNumberDetailActivity extends AppCompatActivity {
@@ -55,6 +44,14 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
 
         nameText.setText(nnModel.getName());
         numberText.setText(nnModel.getNumber());
+        numberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(nnModel.getNumber()));
+                startActivity(intent);
+            }
+        });
 
         pictures.setAdapter(new PhoneNumberDetailPicturesRVAdapter());
         pictures.setLayoutManager(new GridLayoutManager(this, 3));
@@ -81,7 +78,9 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.setType("image/*");
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
+                        File.separator + "Pictures" + File.separator);
+                intent.setDataAndType(uri,"*/*");
                 mGetContent.launch(intent);
             }
         });
