@@ -1,7 +1,6 @@
 package com.example.test2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,8 +119,6 @@ public class FirstTab extends Fragment  {
 
                 nnModel.setName(nnObject.getString("name"));
                 nnModel.setNumber(nnObject.getString("number"));
-                nnModel.getPictures().add(Uri.parse("android.resource://com.example.test2/"
-                        + mThumbIds[i]).toString());
 
                 nnModels.add(nnModel);
             }

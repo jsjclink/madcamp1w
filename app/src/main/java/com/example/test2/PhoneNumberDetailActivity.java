@@ -44,9 +44,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
 
         nnModel = (NameNumberModel) getIntent().getSerializableExtra("nnModel");
         ArrayList<String> prefPictures = getStringArrayPref(this, nnModel.getNumber());
-        if (prefPictures.size() > 0) {
-            nnModel.setPictures(prefPictures);
-        }
+        nnModel.setPictures(prefPictures);
 
         TextView nameText = findViewById(R.id.DetailName);
         TextView numberText = findViewById(R.id.DetailNumber);
@@ -155,6 +153,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                     Intent intent = new Intent(PhoneNumberDetailActivity.this,
                             GalleryDetailActivity.class);
                     intent.putExtra("pictureUri", nnModel.getPictures().get(position));
+                    intent.putExtra("number", nnModel.getNumber());
                     startActivity(intent);
                 }
             });
@@ -169,6 +168,8 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             ArrayList<String> pictureList = nnModel.getPictures();
+                            int position = holder.getLayoutPosition();
+                            if (position == 0) return;
                             pictureList.remove(holder.getLayoutPosition());
                             setStringArrayPref(PhoneNumberDetailActivity.this,
                                     nnModel.getNumber(), pictureList);

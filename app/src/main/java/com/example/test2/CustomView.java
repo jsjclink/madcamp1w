@@ -8,11 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -135,7 +132,7 @@ public class CustomView extends View {
     }
 
     public void setBackgroundImage(Bitmap bitmap) {
-        this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1080, true);
+        this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1400, true);
         this.enableBG = true;
     }
     public void flipBackground(){

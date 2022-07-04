@@ -3,7 +3,6 @@ package com.example.test2;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +22,7 @@ public class GalleryDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Uri pictureUri = Uri.parse(intent.getStringExtra("pictureUri"));
+        String numberString = intent.getStringExtra("number");
 
         TextView explanationTV = findViewById(R.id.GalleryDetailExplanationTV);
         PhotoView photoView = findViewById(R.id.GalleryDetailPhotoView);
@@ -40,6 +40,7 @@ public class GalleryDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(GalleryDetailActivity.this, MainActivity.class);
                 intent.putExtra("from", "GalleryDetailActivity");
                 intent.putExtra("uri", pictureUri.toString());
+                intent.putExtra("number", numberString);
                 startActivity(intent);
             }
         });
