@@ -1,8 +1,14 @@
 package com.example.test2;
 
-public class NameNumberModel {
+import android.net.Uri;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class NameNumberModel implements Serializable {
     String name;
     String number;
+    ArrayList<String> pictures = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -11,6 +17,8 @@ public class NameNumberModel {
     public String getNumber() {
         return number;
     }
+
+    public ArrayList<String> getPictures() { return pictures; };
 
     public void setName(String name) {
         this.name = name;

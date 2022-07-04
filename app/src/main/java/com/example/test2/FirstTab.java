@@ -1,6 +1,7 @@
 package com.example.test2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -22,7 +23,20 @@ import java.util.ArrayList;
 import java.util.jar.Attributes;
 
 public class FirstTab extends Fragment  {
-    ArrayList<NameNumberModel> nnModels;
+    // references to our images
+    private Integer[] mThumbIds = {
+            R.drawable.sample_1, R.drawable.sample_2,
+            R.drawable.sample_3, R.drawable.sample_4,
+            R.drawable.sample_5, R.drawable.sample_6,
+            R.drawable.sample_7, R.drawable.sample_8,
+            R.drawable.sample_9, R.drawable.sample_10,
+            R.drawable.sample_11, R.drawable.sample_12,
+            R.drawable.sample_13, R.drawable.sample_14,
+            R.drawable.sample_15, R.drawable.sample_16,
+            R.drawable.sample_17, R.drawable.sample_18,
+            R.drawable.sample_19, R.drawable.sample_20
+    };
+    public static ArrayList<NameNumberModel> nnModels;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,8 +86,7 @@ public class FirstTab extends Fragment  {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), PhoneNumberDetailActivity.class);
                     int position = holder.getBindingAdapterPosition();
-                    intent.putExtra("name", nnModels.get(position).getName());
-                    intent.putExtra("number", nnModels.get(position).getNumber());
+                    intent.putExtra("nnModel", nnModels.get(position));
                     intent.putExtra("position", position);
                     startActivity(intent);
                 }
@@ -111,6 +124,8 @@ public class FirstTab extends Fragment  {
 
                 nnModel.setName(nnObject.getString("name"));
                 nnModel.setNumber(nnObject.getString("number"));
+                nnModel.getPictures().add(Uri.parse("android.resource://com.example.test2/"
+                        + mThumbIds[i]).toString());
 
                 nnModels.add(nnModel);
             }

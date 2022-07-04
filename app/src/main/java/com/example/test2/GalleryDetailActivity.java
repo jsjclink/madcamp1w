@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,15 +19,14 @@ public class GalleryDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery_detail);
 
         Intent intent = getIntent();
-        String explanation = intent.getStringExtra("name");
-        int picture = intent.getIntExtra("picture", 0);
+        Uri pictureUri = Uri.parse(intent.getStringExtra("pictureUri"));
 
         TextView explanationTV = findViewById(R.id.GalleryDetailExplanationTV);
         ImageView pictureIV = findViewById(R.id.GalleryDetailPictureIV);
         pictureIV.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-        explanationTV.setText(explanation);
-        pictureIV.setImageResource(picture);
+        explanationTV.setText(pictureUri.toString());
+        pictureIV.setImageURI(pictureUri);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
