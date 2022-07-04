@@ -1,10 +1,18 @@
 package com.example.test2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +21,18 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SecondTab extends Fragment {
     // references to our images
@@ -44,6 +57,29 @@ public class SecondTab extends Fragment {
         for (Integer i : mThumbIds) {
             pictures.add(Uri.parse("android.resource://com.example.test2/" + i));
         }
+
+        //OnCheckPermission();
+
+        //실험
+        Log.d("stringpath", "HI");
+        String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";
+        Log.d("path", path);
+        File f = new File(path);
+
+        File[] files = f.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.getName().toLowerCase(Locale.US).endsWith(".jpg");
+            }
+        });
+        for(File file : files){
+            Log.d("uriabsolutepath", file.getAbsolutePath());
+            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
+                    File.separator + "Pictures" + File.separator + file.getName() + File.separator);
+            pictures.add(uri);
+        }
+
+
 
         View v = inflater.inflate(R.layout.second_tab, container, false);
 
@@ -85,6 +121,25 @@ public class SecondTab extends Fragment {
     public void onResume() {
         super.onResume();
         ((RecyclerView)getView().findViewById(R.id.Tab2RV)).getAdapter().notifyDataSetChanged();
+
+        Log.d("stringpath", "HI");
+        String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";
+        Log.d("path", path);
+        File f = new File(path);
+
+        File[] files = f.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.getName().toLowerCase(Locale.US).endsWith(".jpg");
+            }
+        });
+        for(File file : files){
+            Log.d("uriabsolutepath", file.getAbsolutePath());
+            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
+                    File.separator + "Pictures" + File.separator + file.getName() + File.separator);
+            if(!pictures.contains(uri)) pictures.add(uri);
+        }
+
     }
 
     public static SecondTab newInstance(String text) {
@@ -132,6 +187,13 @@ public class SecondTab extends Fragment {
         @Override
         public int getItemCount() {
             return pictures.size();
+        }
+
+    }
+    private void OnCheckPermission() {
+        if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            //Toast.makeText(this, "앱 실행을 위해서는 권한을 설정하세요", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
     }
 }

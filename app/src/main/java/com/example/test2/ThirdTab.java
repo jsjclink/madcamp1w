@@ -52,13 +52,20 @@ public class ThirdTab extends Fragment {
         initListener();
 
         customView = new CustomView(getActivity());
-        customView.setPaintInfo(color, r);
+        customView.setPaintInfo(color, r*2);
         //customView.setBackgroundImage(BitmapFactory.decodeResource(getResources(), R.drawable.sample_1));
         stage.addView(customView);
 
         String from = getActivity().getIntent().getStringExtra("from");
         if("GalleryDetailActivity".equals(from)){
-            Uri uri = Uri.parse(getActivity().getIntent().getStringExtra("uri"));
+            String uriStr = getActivity().getIntent().getStringExtra("uri");
+            Uri uri;
+            if(uriStr.contains("android.resource")){
+                uri = Uri.parse(uriStr);
+            }
+            else{
+                uri = Uri.parse("file://" + uriStr);
+            }
             try {
                 customView.setBackgroundImage(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri));
             } catch (IOException e) {
@@ -114,7 +121,7 @@ public class ThirdTab extends Fragment {
                         color = Color.BLUE;
                         break;
                 }
-                customView.setPaintInfo(color, r);
+                customView.setPaintInfo(color, r*2);
             }
         });
 
@@ -132,7 +139,7 @@ public class ThirdTab extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 r = (float)seekBar.getProgress() / 10;
-                customView.setPaintInfo(color, r);
+                customView.setPaintInfo(color, r*2);
             }
         });
 
@@ -181,7 +188,6 @@ public class ThirdTab extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         customView.wantToAddText(editText.getText().toString());
-                        Toast.makeText(getActivity(), editText.getText().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
                 dialog.show();
@@ -209,7 +215,7 @@ public class ThirdTab extends Fragment {
 
     public void saveBitmapAsJPG(Bitmap bitmap){
         String root = Environment.getExternalStorageDirectory().toString();
-        Log.d("root", root);
+        //Log.d("root", root);
         File myDir = new File(root + "/Pictures");
 
         String fname = "Image-" + System.currentTimeMillis() + ".jpg";
@@ -220,7 +226,7 @@ public class ThirdTab extends Fragment {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-            SecondTab.pictures.add(Uri.parse(file.toString()));
+            //SecondTab.pictures.add(Uri.parse(file.toString()));
         }
         catch (Exception e){
             e.printStackTrace();

@@ -37,7 +37,6 @@ public class GalleryDetailActivity extends AppCompatActivity {
         editFB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Clicked", "CLisdfajsdfl");
                 Intent intent = new Intent(GalleryDetailActivity.this, MainActivity.class);
                 intent.putExtra("from", "GalleryDetailActivity");
                 intent.putExtra("uri", pictureUri.toString());

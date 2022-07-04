@@ -61,6 +61,7 @@ public class CustomView extends View {
 
         pathInfo = new PathInfo();
         pathInfo.setPaint(paint);
+
     }
 
     @Override
@@ -96,7 +97,7 @@ public class CustomView extends View {
                     dialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Log.d("네 클릭함", text);
+                            //Log.d("네 클릭함", text);
                             textData.add(new TextInfo(text, x, y));
                             text = "";
                             invalidate();
@@ -105,7 +106,7 @@ public class CustomView extends View {
                     dialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Log.d("아니오 클릭함", text);
+                            //Log.d("아니오 클릭함", text);
                             text = "";
                         }
                     });
