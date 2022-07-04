@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int NUM_PAGES = 3;
     public static ViewPager2 viewPager;
     private FragmentStateAdapter pagerAdapter;
-    private String[] titles = new String[]{"전화번호부", "사진첩", "단축키"};
+    private String[] titles = new String[]{"전화번호부", "사진첩", "그림판"};
     private int[] tabIcons = new int[]{R.drawable.tabicon1, R.drawable.tabicon2, R.drawable.tabicon3};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
