@@ -17,32 +17,29 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class CustomView extends View {
-    Paint paint;
-    ArrayList<PathInfo> data;
+    Paint paint, textPaint; //paint: 그린 paint, textPaint: 글
+    ArrayList<PathInfo> data, poppedData, tmpData; //poppedData: pop된 data stack에 쌓은거 tmpData: 부드럽게 그려지게(마우스 떼면 clear)
     PathInfo pathInfo;
+    ArrayList<TextInfo> textData;
     Bitmap backgroundImange = null;
     boolean enableBG = false;
-    ArrayList<PathInfo> poppedData;
-    int curColor;
-    float curR;
-    ArrayList<PathInfo> tmpData;
+    int curColor; float curR;
     String text = "";
     Context context;
-    ArrayList<TextInfo> textData;
-    Paint textPaint;
+
 
     public CustomView(Context context){
         super(context);
         this.context = context;
 
-        paint = new Paint();
-        paint.setColor(Color.CYAN);
-        paint.setStrokeWidth(10f);
-
         data = new ArrayList<>();
         poppedData = new ArrayList<>();
         tmpData = new ArrayList<>();
         textData = new ArrayList<>();
+
+        paint = new Paint();
+        paint.setColor(Color.CYAN);
+        paint.setStrokeWidth(10f);
 
         //text 설정
         textPaint = new Paint();
@@ -97,7 +94,6 @@ public class CustomView extends View {
                     dialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //Log.d("네 클릭함", text);
                             textData.add(new TextInfo(text, x, y));
                             text = "";
                             invalidate();
@@ -106,7 +102,6 @@ public class CustomView extends View {
                     dialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //Log.d("아니오 클릭함", text);
                             text = "";
                         }
                     });
@@ -129,9 +124,6 @@ public class CustomView extends View {
         }
 
         invalidate();
-        //Log.d("Data   ", Integer.toString(data.size()));
-        //Log.d("tmpData", Integer.toString(tmpData.size()));
-
         return true;
     }
 

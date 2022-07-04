@@ -1,7 +1,9 @@
 package com.example.test2;
 
+import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         viewPager.setUserInputEnabled(false);
 
+        OnCheckPermission();
+
         String from = getIntent().getStringExtra("from");
         if("GalleryDetailActivity".equals(from)){
             viewPager.setCurrentItem(2);
@@ -68,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
         public Fragment createFragment(int pos) {
             switch (pos) {
                 case 1:
-                    return SecondTab.newInstance("fragment 2");
+                    return SecondTab.newInstance();
                 case 2:
-                    return ThirdTab.newInstance("fragment 3");
+                    return ThirdTab.newInstance();
                 default:
                     return FirstTab.newInstance(getJsonString());
             }
@@ -102,5 +107,12 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+    }
+
+    private void OnCheckPermission() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            //Toast.makeText(this, "앱 실행을 위해서는 권한을 설정하세요", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
     }
 }

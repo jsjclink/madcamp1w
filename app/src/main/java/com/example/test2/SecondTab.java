@@ -58,12 +58,8 @@ public class SecondTab extends Fragment {
             pictures.add(Uri.parse("android.resource://com.example.test2/" + i));
         }
 
-        //OnCheckPermission();
-
-        //실험
-        Log.d("stringpath", "HI");
+        //pictures 폴더에 있는 사진들 불러와 array에 추가
         String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";
-        Log.d("path", path);
         File f = new File(path);
 
         File[] files = f.listFiles(new FileFilter() {
@@ -73,12 +69,10 @@ public class SecondTab extends Fragment {
             }
         });
         for(File file : files){
-            Log.d("uriabsolutepath", file.getAbsolutePath());
             Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
                     File.separator + "Pictures" + File.separator + file.getName() + File.separator);
             pictures.add(uri);
         }
-
 
 
         View v = inflater.inflate(R.layout.second_tab, container, false);
@@ -122,9 +116,8 @@ public class SecondTab extends Fragment {
         super.onResume();
         ((RecyclerView)getView().findViewById(R.id.Tab2RV)).getAdapter().notifyDataSetChanged();
 
-        Log.d("stringpath", "HI");
+        //third tab 갔다가 돌아왔을 때 그 새로 그린거 추가되게
         String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";
-        Log.d("path", path);
         File f = new File(path);
 
         File[] files = f.listFiles(new FileFilter() {
@@ -134,7 +127,6 @@ public class SecondTab extends Fragment {
             }
         });
         for(File file : files){
-            Log.d("uriabsolutepath", file.getAbsolutePath());
             Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
                     File.separator + "Pictures" + File.separator + file.getName() + File.separator);
             if(!pictures.contains(uri)) pictures.add(uri);
@@ -142,7 +134,7 @@ public class SecondTab extends Fragment {
 
     }
 
-    public static SecondTab newInstance(String text) {
+    public static SecondTab newInstance() {
         SecondTab f = new SecondTab();
         return f;
     }
@@ -189,11 +181,5 @@ public class SecondTab extends Fragment {
             return pictures.size();
         }
 
-    }
-    private void OnCheckPermission() {
-        if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            //Toast.makeText(this, "앱 실행을 위해서는 권한을 설정하세요", Toast.LENGTH_LONG).show();
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }
     }
 }
