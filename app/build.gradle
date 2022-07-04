@@ -43,5 +43,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     // This is for imageview zoom in/out
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-
+    // This is for recyclerview selection
+    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
 }

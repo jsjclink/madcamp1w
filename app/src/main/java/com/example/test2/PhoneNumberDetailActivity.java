@@ -1,9 +1,11 @@
 package com.example.test2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -33,7 +35,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class PhoneNumberDetailActivity extends AppCompatActivity {
-    private ArrayList<Uri> pictures;
     private NameNumberModel nnModel;
 
     @Override
@@ -155,6 +156,32 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                             GalleryDetailActivity.class);
                     intent.putExtra("pictureUri", nnModel.getPictures().get(position));
                     startActivity(intent);
+                }
+            });
+            holder.picture.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder dialog =
+                            new AlertDialog.Builder(PhoneNumberDetailActivity.this);
+                    dialog.setTitle("삭제");
+                    dialog.setMessage("선택하신 이미지를 삭제하시겠습니까?");
+                    dialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ArrayList<String> pictureList = nnModel.getPictures();
+                            pictureList.remove(holder.getLayoutPosition());
+                            setStringArrayPref(PhoneNumberDetailActivity.this,
+                                    nnModel.getNumber(), pictureList);
+                            holder.getBindingAdapter().notifyDataSetChanged();
+                        }
+                    });
+                    dialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    dialog.show();
+                    return true;
                 }
             });
         }
