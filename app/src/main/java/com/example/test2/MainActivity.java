@@ -1,6 +1,7 @@
 package com.example.test2;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         setTabIcons(tabLayout);
         getSupportActionBar().hide();
         viewPager.setUserInputEnabled(false);
+
+        String from = getIntent().getStringExtra("from");
+        if("GalleryDetailActivity".equals(from)){
+            viewPager.setCurrentItem(2);
+        }
     }
 
     @Override

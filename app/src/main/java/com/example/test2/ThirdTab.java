@@ -8,10 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ThirdTab extends Fragment {
     CustomView customView;
@@ -50,8 +53,18 @@ public class ThirdTab extends Fragment {
 
         customView = new CustomView(getActivity());
         customView.setPaintInfo(color, r);
-        customView.setBackgroundImage(BitmapFactory.decodeResource(getResources(), R.drawable.sample_1));
+        //customView.setBackgroundImage(BitmapFactory.decodeResource(getResources(), R.drawable.sample_1));
         stage.addView(customView);
+
+        String from = getActivity().getIntent().getStringExtra("from");
+        if("GalleryDetailActivity".equals(from)){
+            Uri uri = Uri.parse(getActivity().getIntent().getStringExtra("uri"));
+            try {
+                customView.setBackgroundImage(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return v;
     }
