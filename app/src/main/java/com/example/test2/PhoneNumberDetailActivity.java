@@ -21,6 +21,7 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PhoneNumberDetailActivity extends AppCompatActivity {
@@ -55,6 +57,14 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
 
         nameText.setText(nnModel.getName());
         numberText.setText(nnModel.getNumber());
+        numberText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(nnModel.getNumber()));
+                startActivity(intent);
+            }
+        });
 
         pictures.setAdapter(new PhoneNumberDetailPicturesRVAdapter());
         pictures.setLayoutManager(new GridLayoutManager(this, 3));
@@ -81,7 +91,9 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.setType("image/*");
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
+                        File.separator + "Pictures" + File.separator);
+                intent.setDataAndType(uri,"*/*");
                 mGetContent.launch(intent);
             }
         });

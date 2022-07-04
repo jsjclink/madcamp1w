@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tab_layout);
         new TabLayoutMediator(tabLayout, viewPager,(tab, position) -> tab.setText(titles[position])).attach();
         setTabIcons(tabLayout);
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
         viewPager.setUserInputEnabled(false);
     }
 
