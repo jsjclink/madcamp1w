@@ -144,6 +144,7 @@ public class ThirdTab extends Fragment {
                 Bitmap bitmap = getBitmapFromView(customView);
                 OnCheckPermission();
                 saveBitmapAsJPG(bitmap);
+                Toast.makeText(getActivity(), "저장되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
     }
