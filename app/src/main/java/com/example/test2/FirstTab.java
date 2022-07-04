@@ -36,7 +36,7 @@ public class FirstTab extends Fragment  {
             R.drawable.sample_17, R.drawable.sample_18,
             R.drawable.sample_19, R.drawable.sample_20
     };
-    ArrayList<NameNumberModel> nnModels;
+    public static ArrayList<NameNumberModel> nnModels;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,8 +86,6 @@ public class FirstTab extends Fragment  {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), PhoneNumberDetailActivity.class);
                     int position = holder.getBindingAdapterPosition();
-                    intent.putExtra("name", nnModels.get(position).getName());
-                    intent.putExtra("number", nnModels.get(position).getNumber());
                     intent.putExtra("nnModel", nnModels.get(position));
                     intent.putExtra("position", position);
                     startActivity(intent);
