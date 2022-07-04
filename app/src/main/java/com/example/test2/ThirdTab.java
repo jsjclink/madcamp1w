@@ -3,6 +3,7 @@ package com.example.test2;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -35,7 +36,7 @@ public class ThirdTab extends Fragment {
     RadioGroup radioGroup, radioGroup2;
     RadioButton radioBtnBlack, radioBtnRed, radioBtnGreen, radioBtnBlue;
     SeekBar seekBar;
-    Button btnClear, btnSave;
+    Button btnClear, btnSave, btnBackground;
 
     int color = Color.BLACK;
     boolean isEraser = false;
@@ -50,6 +51,7 @@ public class ThirdTab extends Fragment {
 
         customView = new CustomView(getActivity());
         customView.setPaintInfo(color, r);
+        customView.setBackgroundImage(BitmapFactory.decodeResource(getResources(), R.drawable.sample_1));
         stage.addView(customView);
 
         return v;
@@ -77,6 +79,7 @@ public class ThirdTab extends Fragment {
         radioGroup2 = v.findViewById(R.id.radioGroup2);
         btnClear = v.findViewById(R.id.clear);
         btnSave = v.findViewById(R.id.save);
+        btnBackground = v.findViewById(R.id.background);
     }
 
     private void initListener(){
@@ -148,6 +151,12 @@ public class ThirdTab extends Fragment {
                 OnCheckPermission();
                 saveBitmapAsJPG(bitmap);
                 Toast.makeText(getActivity(), "저장되었습니다.", Toast.LENGTH_LONG).show();
+            }
+        });
+        btnBackground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customView.flipBackground();
             }
         });
     }

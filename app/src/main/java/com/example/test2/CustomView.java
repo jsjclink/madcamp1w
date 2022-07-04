@@ -1,6 +1,7 @@
 package com.example.test2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +16,8 @@ public class CustomView extends View {
     Paint paint;
     ArrayList<PathInfo> data;
     PathInfo pathInfo;
+    Bitmap backgroundImange;
+    boolean enableBG = true;
 
     public CustomView(Context context){
         super(context);
@@ -39,6 +42,7 @@ public class CustomView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if(enableBG) canvas.drawBitmap(backgroundImange, 0, 0, null);
         for (PathInfo p : data){
             canvas.drawPath(p, p.getPaint());
         }
@@ -69,6 +73,21 @@ public class CustomView extends View {
     public void clearAll(int color, float r) {
         data.clear();
         setPaintInfo(color, r);
+        invalidate();
+    }
+
+    public void setBackgroundImage(Bitmap bitmap) {
+        this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1000, true);
+    }
+    public void enableBackground(){
+        this.enableBG = true;
+    }
+    public void disableBackground(){
+        this.enableBG = false;
+    }
+    public void flipBackground(){
+        enableBG = enableBG ? false : true;
+        Log.d("enableBG", enableBG ? "true" : "false");
         invalidate();
     }
 }
