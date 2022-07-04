@@ -135,7 +135,7 @@ public class CustomView extends View {
     }
 
     public void setBackgroundImage(Bitmap bitmap) {
-        this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1000, true);
+        this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1080, true);
         this.enableBG = true;
     }
     public void flipBackground(){
