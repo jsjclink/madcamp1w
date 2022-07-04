@@ -30,13 +30,12 @@ import java.io.FileOutputStream;
 public class ThirdTab extends Fragment {
     CustomView customView;
     FrameLayout stage;
-    RadioGroup radioGroup, radioGroup2;
+    RadioGroup radioGroup;
     RadioButton radioBtnBlack, radioBtnRed, radioBtnGreen, radioBtnBlue;
     SeekBar seekBar;
-    Button btnClear, btnSave, btnBackground;
+    Button btnClear, btnSave, btnBackground, btnUndo, btnRedo, btnAddText;
 
     int color = Color.BLACK;
-    boolean isEraser = false;
     float r = 5f;
 
     @Override
@@ -73,10 +72,12 @@ public class ThirdTab extends Fragment {
         radioBtnGreen = v.findViewById(R.id.radioBtnGreen);
         radioBtnBlue = v.findViewById(R.id.radioBtnBlue);
         seekBar = v.findViewById(R.id.seekBar);
-        radioGroup2 = v.findViewById(R.id.radioGroup2);
         btnClear = v.findViewById(R.id.clear);
         btnSave = v.findViewById(R.id.save);
         btnBackground = v.findViewById(R.id.background);
+        btnUndo = v.findViewById(R.id.undo);
+        btnRedo = v.findViewById(R.id.redo);
+        btnAddText = v.findViewById(R.id.addtext);
     }
 
     private void initListener(){
@@ -97,7 +98,7 @@ public class ThirdTab extends Fragment {
                         color = Color.BLUE;
                         break;
                 }
-                customView.setPaintInfo(isEraser ? Color.WHITE : color, isEraser? r*2 : r);
+                customView.setPaintInfo(color, r);
             }
         });
 
@@ -115,23 +116,7 @@ public class ThirdTab extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 r = (float)seekBar.getProgress() / 10;
-                customView.setPaintInfo(isEraser ? Color.WHITE : color, isEraser? r*2 : r);
-            }
-        });
-
-        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
-                    case R.id.pen:
-                        isEraser = false;
-                        customView.setPaintInfo(color, r);
-                        break;
-                    case R.id.eraser:
-                        isEraser = true;
-                        customView.setPaintInfo(Color.WHITE, r*2);
-                        break;
-                }
+                customView.setPaintInfo(color, r);
             }
         });
 
@@ -154,6 +139,24 @@ public class ThirdTab extends Fragment {
             @Override
             public void onClick(View view) {
                 customView.flipBackground();
+            }
+        });
+        btnUndo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customView.undoPathInfo();
+            }
+        });
+        btnRedo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customView.redoPathInfo();
+            }
+        });
+        btnAddText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

@@ -18,6 +18,10 @@ public class CustomView extends View {
     PathInfo pathInfo;
     Bitmap backgroundImange;
     boolean enableBG = true;
+    ArrayList<PathInfo> poppedData;
+    boolean beforeActionUp = true;
+    int curColor;
+    float curR;
 
     public CustomView(Context context){
         super(context);
@@ -27,9 +31,13 @@ public class CustomView extends View {
         paint.setStrokeWidth(10f);
 
         data = new ArrayList<>();
+        poppedData = new ArrayList<>();
     }
 
     public void setPaintInfo(int color, float r){
+        curColor = color;
+        curR = r;
+
         paint = new Paint();
         paint.setColor(color);
 
@@ -60,10 +68,12 @@ public class CustomView extends View {
                 pathInfo.lineTo(event.getX(), event.getY());
                 break;
             case MotionEvent.ACTION_UP:
+                data.add(pathInfo);
+                pathInfo = new PathInfo();
+                setPaintInfo(curColor, curR);
+                poppedData.clear();
                 break;
         }
-
-        data.add(pathInfo);
 
         invalidate();
 
@@ -79,15 +89,23 @@ public class CustomView extends View {
     public void setBackgroundImage(Bitmap bitmap) {
         this.backgroundImange = Bitmap.createScaledBitmap(bitmap, 1080, 1000, true);
     }
-    public void enableBackground(){
-        this.enableBG = true;
-    }
-    public void disableBackground(){
-        this.enableBG = false;
-    }
     public void flipBackground(){
         enableBG = enableBG ? false : true;
-        Log.d("enableBG", enableBG ? "true" : "false");
+        invalidate();
+    }
+
+    public void undoPathInfo() {
+        if(data.size() > 0) {
+            poppedData.add(data.remove(data.size()-1));
+        }
+        Log.d("afterundo", "data.size()" + Integer.toString(data.size()));
+        invalidate();
+    }
+
+    public void redoPathInfo() {
+        if(poppedData.size() > 0){
+            data.add(poppedData.remove(poppedData.size()-1));
+        }
         invalidate();
     }
 }
