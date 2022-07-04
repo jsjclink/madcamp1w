@@ -1,6 +1,8 @@
 package com.example.test2;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -156,7 +159,19 @@ public class ThirdTab extends Fragment {
         btnAddText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final EditText editText = new EditText(getActivity());
 
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setTitle("텍스트 추가");
+                dialog.setView(editText);
+                dialog.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        customView.wantToAddText(editText.getText().toString());
+                        Toast.makeText(getActivity(), editText.getText().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.show();
             }
         });
     }
