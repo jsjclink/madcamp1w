@@ -1,6 +1,7 @@
 package com.example.test2;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,7 +56,15 @@ public class SecondTab extends Fragment {
                 registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        pictures.add(result.getData().getData());
+                        ClipData clipData = result.getData().getClipData();
+                            if (clipData != null) {
+                                for (int i = 0; i < clipData.getItemCount(); i++) {
+                                    pictures.add(clipData.getItemAt(i).getUri());
+                                }
+                            } else {
+                                Uri uri = result.getData().getData();
+                                pictures.add(uri);
+                            }
                         secondTabRV.requestLayout();
                     }
                 });
@@ -64,6 +73,7 @@ public class SecondTab extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent fetchPicture = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                fetchPicture.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 mGetContent.launch(fetchPicture.setType("image/*"));
             }
         });

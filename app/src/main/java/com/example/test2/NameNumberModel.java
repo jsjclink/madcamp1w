@@ -25,4 +25,8 @@ public class NameNumberModel implements Serializable {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public void setPictures(ArrayList<String> pictures) {
+        this.pictures = pictures;
+    }
 }
