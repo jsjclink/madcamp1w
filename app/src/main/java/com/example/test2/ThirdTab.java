@@ -1,18 +1,17 @@
 package com.example.test2;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ImageDecoder;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,12 +25,15 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ThirdTab extends Fragment {
     CustomView customView;
@@ -43,6 +45,7 @@ public class ThirdTab extends Fragment {
 
     int color = Color.BLACK;
     float r = 5f;
+    String firstTabNumberString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,18 +55,20 @@ public class ThirdTab extends Fragment {
         initListener();
 
         customView = new CustomView(getActivity());
-        customView.setPaintInfo(color, r*2);
+        customView.setPaintInfo(color, r * 2);
         stage.addView(customView);
 
-        String from = getActivity().getIntent().getStringExtra("from");
-        if("GalleryDetailActivity".equals(from)){
+        Intent intent = getActivity().getIntent();
+        String from = intent.getStringExtra("from");
+        firstTabNumberString = intent.getStringExtra("number");
+        // Pictures from gallery detail activity is set to background
+        if ("GalleryDetailActivity".equals(from)) {
             String uriStr = getActivity().getIntent().getStringExtra("uri");
             Uri uri;
-            if(uriStr.contains("android.resource")){
-                uri = Uri.parse(uriStr);
-            }
-            else{
+            if (uriStr.startsWith("/")) {
                 uri = Uri.parse("file://" + uriStr);
+            } else {
+                uri = Uri.parse(uriStr);
             }
             try {
                 customView.setBackgroundImage(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri));
@@ -76,11 +81,11 @@ public class ThirdTab extends Fragment {
     }
 
     public static ThirdTab newInstance() {
-        ThirdTab  f = new ThirdTab();
+        ThirdTab f = new ThirdTab();
         return f;
     }
 
-    private void initView(View v){
+    private void initView(View v) {
         stage = v.findViewById(R.id.stage);
         radioGroup = v.findViewById(R.id.radioGroup);
         radioBtnBlack = v.findViewById(R.id.radioBtnBlack);
@@ -96,11 +101,11 @@ public class ThirdTab extends Fragment {
         btnAddText = v.findViewById(R.id.addtext);
     }
 
-    private void initListener(){
+    private void initListener() {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch(i){
+                switch (i) {
                     case R.id.radioBtnBlack:
                         color = Color.BLACK;
                         break;
@@ -114,7 +119,7 @@ public class ThirdTab extends Fragment {
                         color = Color.BLUE;
                         break;
                 }
-                customView.setPaintInfo(color, r*2);
+                customView.setPaintInfo(color, r * 2);
             }
         });
 
@@ -131,8 +136,8 @@ public class ThirdTab extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                r = (float)seekBar.getProgress() / 10;
-                customView.setPaintInfo(color, r*2);
+                r = (float) seekBar.getProgress() / 10;
+                customView.setPaintInfo(color, r * 2);
             }
         });
 
@@ -186,14 +191,15 @@ public class ThirdTab extends Fragment {
             }
         });
     }
-    public static Bitmap getBitmapFromView(View view){
+
+    public static Bitmap getBitmapFromView(View view) {
         //Define a bitmap with the same size as the view
-        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         //Bind a canvas to it
         Canvas canvas = new Canvas(returnedBitmap);
         //Get the view's background
         Drawable bgDrawable = view.getBackground();
-        if (bgDrawable!=null)
+        if (bgDrawable != null)
             //has background drawable, then draw it on the canvas
             bgDrawable.draw(canvas);
         else
@@ -203,20 +209,49 @@ public class ThirdTab extends Fragment {
         return returnedBitmap;
     }
 
-    public void saveBitmapAsJPG(Bitmap bitmap){
+    public void saveBitmapAsJPG(Bitmap bitmap) {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/Pictures");
 
         String fname = "Image-" + System.currentTimeMillis() + ".jpg";
         File file = new File(myDir, fname);
-        if(file.exists()) file.delete();
+        if (file.exists()) file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-        }
-        catch (Exception e){
+
+            // If called from phone number detail activity, then the pictures is saved
+            if (firstTabNumberString != null) {
+                Log.d("hihi", firstTabNumberString);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = prefs.edit();
+                String json = prefs.getString(firstTabNumberString, null);
+                ArrayList<String> urls = new ArrayList<String>();
+                try {
+                    if (json != null) {
+                        JSONArray a = new JSONArray(json);
+                        for (int i = 0; i < a.length(); i++) {
+                            String url = a.optString(i);
+                            urls.add(url);
+                        }
+                    }
+                    String uriStr = file.toString();
+                    urls.add(uriStr);
+                    JSONArray a = new JSONArray();
+                    for (int i = 0; i < urls.size(); i++) {
+                        a.put(urls.get(i));
+                    }
+                    Log.d("nono", a.toString());
+                    editor.putString(firstTabNumberString, a.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                editor.apply();
+                editor.commit();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
