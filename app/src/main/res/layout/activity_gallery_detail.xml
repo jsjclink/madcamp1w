@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".GalleryDetailActivity">
 
-    <ImageView
-        android:id="@+id/GalleryDetailPictureIV"
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/GalleryDetailPhotoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -19,8 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/GalleryDetailExplanationTV"

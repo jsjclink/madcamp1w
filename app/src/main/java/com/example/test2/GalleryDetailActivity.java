@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.chrisbanes.photoview.PhotoView;
+
 public class GalleryDetailActivity extends AppCompatActivity {
 
     @Override
@@ -22,11 +24,11 @@ public class GalleryDetailActivity extends AppCompatActivity {
         Uri pictureUri = Uri.parse(intent.getStringExtra("pictureUri"));
 
         TextView explanationTV = findViewById(R.id.GalleryDetailExplanationTV);
-        ImageView pictureIV = findViewById(R.id.GalleryDetailPictureIV);
-        pictureIV.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        PhotoView photoView = findViewById(R.id.GalleryDetailPhotoView);
+        photoView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
         explanationTV.setText(pictureUri.toString());
-        pictureIV.setImageURI(pictureUri);
+        photoView.setImageURI(pictureUri);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
