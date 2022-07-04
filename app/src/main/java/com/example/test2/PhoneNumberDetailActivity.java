@@ -1,10 +1,15 @@
 package com.example.test2;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +26,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.File;
 import java.util.ArrayList;
 
 public class PhoneNumberDetailActivity extends AppCompatActivity {
     private ArrayList<Uri> pictures;
-    private int personalNumber;
     private NameNumberModel nnModel;
 
     @Override
@@ -34,8 +41,11 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_number_detail);
 
-        personalNumber = getIntent().getIntExtra("position", 0);
         nnModel = (NameNumberModel) getIntent().getSerializableExtra("nnModel");
+        ArrayList<String> prefPictures = getStringArrayPref(this, nnModel.getNumber());
+        if (prefPictures.size() > 0) {
+            nnModel.setPictures(prefPictures);
+        }
 
         TextView nameText = findViewById(R.id.DetailName);
         TextView numberText = findViewById(R.id.DetailNumber);
@@ -48,11 +58,12 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse(nnModel.getNumber()));
+                intent.setData(Uri.parse("tel:" + nnModel.getNumber()));
                 startActivity(intent);
             }
         });
 
+        // Recycler View Configuration.
         pictures.setAdapter(new PhoneNumberDetailPicturesRVAdapter());
         pictures.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -62,13 +73,24 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                         result -> {
                             if (result.getResultCode() == Activity.RESULT_OK) {
                                 Intent data = result.getData();
-                                Uri uri = data.getData();
-                                nnModel.getPictures().add(uri.toString());
-                                FirstTab.nnModels.get(personalNumber)
-                                        .getPictures().add(uri.toString());
-                                this.getContentResolver().
-                                        takePersistableUriPermission(uri,
-                                                Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                ClipData clipData = result.getData().getClipData();
+                                ContentResolver contentResolver = getContentResolver();
+                                Uri uri;
+                                if (clipData != null) {
+                                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                                        uri = clipData.getItemAt(i).getUri();
+                                        nnModel.getPictures().add(uri.toString());
+                                        contentResolver.takePersistableUriPermission(uri,
+                                                        Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    }
+                                } else {
+                                    uri = result.getData().getData();
+                                    nnModel.getPictures().add(uri.toString());
+                                    contentResolver.takePersistableUriPermission(uri,
+                                            Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                }
+                                setStringArrayPref(this, nnModel.getNumber(),
+                                        nnModel.getPictures());
                                 pictures.requestLayout();
                             }
                         });
@@ -78,6 +100,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
                         File.separator + "Pictures" + File.separator);
                 intent.setDataAndType(uri,"*/*");
@@ -140,5 +163,38 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
         public int getItemCount() {
             return nnModel.getPictures().size();
         }
+    }
+
+    private void setStringArrayPref(Context context, String key, ArrayList<String> values) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        JSONArray a = new JSONArray();
+        for (int i = 0; i < values.size(); i++) {
+            a.put(values.get(i));
+        }
+        if (!values.isEmpty()) {
+            editor.putString(key, a.toString());
+        } else {
+            editor.putString(key, null);
+        }
+        editor.apply();
+    }
+
+    private ArrayList<String> getStringArrayPref(Context context, String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefs.getString(key, null);
+        ArrayList<String> urls = new ArrayList<String>();
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+                for (int i = 0; i < a.length(); i++) {
+                    String url = a.optString(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
     }
 }
