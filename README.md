@@ -1,6 +1,7 @@
 # 프로젝트 이름 : PaintU
 
 팀원: 정성재 윤태영
+
 github repo: https://github.com/jsjclink/madcamp1w
 
 * * *
