@@ -1,18 +1,11 @@
 package com.example.test2;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +14,7 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,28 +26,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class SecondTab extends Fragment {
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.sample_1, R.drawable.sample_2,
-            R.drawable.sample_3, R.drawable.sample_4,
-            R.drawable.sample_5, R.drawable.sample_6,
-            R.drawable.sample_7, R.drawable.sample_8,
-            R.drawable.sample_9, R.drawable.sample_10,
-            R.drawable.sample_11, R.drawable.sample_12,
-            R.drawable.sample_13, R.drawable.sample_14,
-            R.drawable.sample_15, R.drawable.sample_16,
-            R.drawable.sample_17, R.drawable.sample_18,
-            R.drawable.sample_19, R.drawable.sample_20
-    };
     public static ArrayList<Uri> pictures;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Picture Uri Array Initialization
         pictures = new ArrayList<>();
-        for (Integer i : mThumbIds) {
-            pictures.add(Uri.parse("android.resource://com.example.test2/" + i));
-        }
 
         //pictures 폴더에 있는 사진들 불러와 array에 추가
         String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";

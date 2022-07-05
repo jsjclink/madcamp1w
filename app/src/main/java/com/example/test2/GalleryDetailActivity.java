@@ -26,7 +26,7 @@ public class GalleryDetailActivity extends AppCompatActivity {
 
         TextView explanationTV = findViewById(R.id.GalleryDetailExplanationTV);
         PhotoView photoView = findViewById(R.id.GalleryDetailPhotoView);
-        photoView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         explanationTV.setText(pictureUri.toString());
         photoView.setImageURI(pictureUri);

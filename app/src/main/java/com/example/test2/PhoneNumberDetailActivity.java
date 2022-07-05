@@ -169,7 +169,6 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             ArrayList<String> pictureList = nnModel.getPictures();
                             int position = holder.getLayoutPosition();
-                            if (position == 0) return;
                             pictureList.remove(holder.getLayoutPosition());
                             setStringArrayPref(PhoneNumberDetailActivity.this,
                                     nnModel.getNumber(), pictureList);

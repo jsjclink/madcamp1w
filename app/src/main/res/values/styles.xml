@@ -10,6 +10,9 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/spoqahansansneolight</item>
+        <item name="android:textColorPrimary">@android:color/white</item>       <!-- 탭바 선택된 텍스트 -->
+        <item name="android:textColorSecondary">@android:color/black</item>     <!-- 탭바 텍스트 -->
         <item name="android:textSize">14sp</item>
     </style>
 </resources>

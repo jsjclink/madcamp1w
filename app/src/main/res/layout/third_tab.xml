@@ -20,6 +20,7 @@
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqahansansneolight"
             android:text="clear"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/background"
@@ -31,6 +32,7 @@
             android:id="@+id/background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqahansansneolight"
             android:text="BACKGROUND"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/save"
@@ -41,6 +43,7 @@
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqahansansneolight"
             android:text="save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="black"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -107,6 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="red"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -115,6 +120,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="green"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -123,6 +129,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="blue"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -141,6 +148,7 @@
                 android:id="@+id/undo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="UNDO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/redo"
@@ -151,6 +159,7 @@
                 android:id="@+id/redo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="REDO"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/addtext"
@@ -161,6 +170,7 @@
                 android:id="@+id/addtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/spoqahansansneolight"
                 android:text="ADDTEXT"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

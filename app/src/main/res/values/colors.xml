@@ -14,4 +14,5 @@
     <color name="frg2Color">#3395FF</color>
     <color name="frg3Color">#F6437B</color>
     <color name="txtBGColor">#9FA8DA</color>
+    <color name="gray">#808080</color>
 </resources>

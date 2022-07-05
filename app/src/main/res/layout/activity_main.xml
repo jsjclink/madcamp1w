@@ -12,6 +12,8 @@
         android:id="@+id/tab_layout"
         style="@style/Widget.MaterialComponents.TabLayout.Colored"
         app:tabTextAppearance="@style/tab_text"
+        android:fontFamily="@font/spoqahansansneolight"
+        app:tabBackground="@drawable/tabs_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
