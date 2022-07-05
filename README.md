@@ -1,6 +1,6 @@
 # 프로젝트 이름 : PaintU
 
-팀원: 정성재 윤태영
+팀원: 정성재, 윤태영
 
 github repo: https://github.com/jsjclink/madcamp1w
 
@@ -24,6 +24,8 @@ tab1(전화번호부)
 ```
 tab2(갤러리)
  Pictures 폴더 내에 있는 사진들을 보여줍니다. tab1과 유사하게 직접 그리거나 등록한 사진 목록을 볼 수 있습니다.
+ tab1과 마찬가지로 사진을 터치한 뒤 팔레트 버튼을 누르면 tab3에서 배경으로 그림을 그릴 수 있습니다.
+ tab3에서 그린 그림들도 자동으로 추가됩니다.
 ```
 ```
 tab3(그림판)
@@ -34,12 +36,10 @@ tab3(그림판)
 
 
 
-
-![Screenshot_20220705-153125_PaintU](https://user-images.githubusercontent.com/60886172/177264565-9f5da4b1-6228-46f0-b2ec-41d996ae8fac.jpg)
-![Screenshot_20220705-153130_PaintU](https://user-images.githubusercontent.com/60886172/177264572-94015372-f09c-45e1-8515-dcba52950c4c.jpg)
-![Screenshot_20220705-153133_PaintU](https://user-images.githubusercontent.com/60886172/177264573-e8f44e9d-5b4e-47c4-bbf8-a4b4f4ebe04f.jpg)
-![Screenshot_20220705-153138_PaintU](https://user-images.githubusercontent.com/60886172/177264582-c37cad0b-6fc1-483e-a0c2-738f3bbccbe3.jpg)
-![Screenshot_20220705-153209_PaintU](https://user-images.githubusercontent.com/60886172/177264590-e37ecf0a-ad9c-485f-b449-412eb9d5f5a3.jpg)
-![Screenshot_20220705-153222_PaintU](https://user-images.githubusercontent.com/60886172/177264599-6df75f8f-c9b8-41a7-b5c1-b6e7f8c95ca2.jpg)
-![Screenshot_20220705-153230_PaintU](https://user-images.githubusercontent.com/60886172/177264602-3c5e11da-226b-48db-84ea-4d9329353890.jpg)
-![Screenshot_20220705-153244_PaintU](https://user-images.githubusercontent.com/60886172/177264607-ce0daf67-07f4-4036-9159-d5b01ddb3c7b.jpg)
+<img src="https://user-images.githubusercontent.com/60886172/177264565-9f5da4b1-6228-46f0-b2ec-41d996ae8fac.jpg" width="400"> <img src="https://user-images.githubusercontent.com/60886172/177264572-94015372-f09c-45e1-8515-dcba52950c4c.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/60886172/177264573-e8f44e9d-5b4e-47c4-bbf8-a4b4f4ebe04f.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/60886172/177264582-c37cad0b-6fc1-483e-a0c2-738f3bbccbe3.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/60886172/177264590-e37ecf0a-ad9c-485f-b449-412eb9d5f5a3.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/60886172/177264599-6df75f8f-c9b8-41a7-b5c1-b6e7f8c95ca2.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/60886172/177264602-3c5e11da-226b-48db-84ea-4d9329353890.jpg" width="400">
+<img src="https://user-images.githubusercontent.com/60886172/177264607-ce0daf67-07f4-4036-9159-d5b01ddb3c7b.jpg" width="400">
