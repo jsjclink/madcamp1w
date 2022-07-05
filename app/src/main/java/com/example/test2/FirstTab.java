@@ -1,10 +1,16 @@
 package com.example.test2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirstTab extends Fragment  {
@@ -63,6 +70,11 @@ public class FirstTab extends Fragment  {
         public void onBindViewHolder(@NonNull NN_RecyclerViewAdapter.MyViewHolder holder, int position) {
             holder.tvName.setText(nnModels.get(position).getName());
             holder.tvNumber.setText(nnModels.get(position).getNumber());
+
+            ArrayList<String> pictures = getStringArrayPref(getActivity(), nnModels.get(position).getNumber());
+            if(pictures.size() > 0){
+                holder.ivImage.setImageURI(Uri.parse(pictures.get(pictures.size()-1)));
+            }
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,12 +94,14 @@ public class FirstTab extends Fragment  {
 
         public class MyViewHolder extends RecyclerView.ViewHolder{
             TextView tvName, tvNumber;
+            ImageView ivImage;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
 
                 tvName = itemView.findViewById(R.id.mPersonName);
                 tvNumber = itemView.findViewById(R.id.mPersonNumber);
+                ivImage = itemView.findViewById(R.id.mImage);
             }
         }
     }
@@ -115,5 +129,23 @@ public class FirstTab extends Fragment  {
         }
 
         return nnModels;
+    }
+
+    private ArrayList<String> getStringArrayPref(Context context, String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String json = prefs.getString(key, null);
+        ArrayList<String> urls = new ArrayList<String>();
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+                for (int i = 0; i < a.length(); i++) {
+                    String url = a.optString(i);
+                    urls.add(url);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return urls;
     }
 }
