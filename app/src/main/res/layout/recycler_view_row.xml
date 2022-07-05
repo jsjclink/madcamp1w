@@ -27,6 +27,7 @@
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="10dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +40,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="정성재"
-                android:textSize="20sp"
+                android:textSize="25sp"
+                android:fontFamily="@font/spoqahansansneolight"
                 app:layout_constraintStart_toEndOf="@+id/mImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +52,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="010-2567-9993"
-                android:textSize="20sp"
+                android:textSize="15sp"
+                android:fontFamily="@font/spoqahansansneolight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/mImage" />
 
