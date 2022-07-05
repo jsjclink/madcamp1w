@@ -111,6 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@android:color/holo_red_dark"
                 android:fontFamily="@font/spoqahansansneolight"
                 android:text="red"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -120,6 +121,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@android:color/holo_green_dark"
                 android:fontFamily="@font/spoqahansansneolight"
                 android:text="green"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -129,6 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@android:color/holo_blue_dark"
                 android:fontFamily="@font/spoqahansansneolight"
                 android:text="blue"
                 tools:ignore="TouchTargetSizeCheck" />

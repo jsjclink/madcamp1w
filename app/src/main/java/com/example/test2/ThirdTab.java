@@ -24,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONArray;
@@ -112,12 +113,14 @@ public class ThirdTab extends Fragment {
                         color = Color.RED;
                         break;
                     case R.id.radioBtnGreen:
-                        color = Color.GREEN;
+                        color = ContextCompat.getColor(getActivity(), R.color.dark_green);
                         break;
                     case R.id.radioBtnBlue:
                         color = Color.BLUE;
                         break;
                 }
+                seekBar.getThumb().setTint(color);
+                seekBar.getProgressDrawable().setTint(color);
                 customView.setPaintInfo(color, r * 2);
             }
         });
@@ -143,7 +146,7 @@ public class ThirdTab extends Fragment {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                customView.clearAll(color, r);
+                customView.clearAll(color, r*2);
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {

@@ -61,10 +61,10 @@ public class CustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         if(enableBG && backgroundImange != null) canvas.drawBitmap(backgroundImange, 0, 0, null);
-        for (PathInfo p : tmpData){
+        for (PathInfo p : data){
             canvas.drawPath(p, p.getPaint());
         }
-        for (PathInfo p : data){
+        for (PathInfo p : tmpData){
             canvas.drawPath(p, p.getPaint());
         }
         for (TextInfo t : textData){

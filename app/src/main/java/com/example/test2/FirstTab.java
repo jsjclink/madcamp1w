@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,10 @@ public class FirstTab extends Fragment  {
             holder.tvNumber.setText(nnModels.get(position).getNumber());
 
             ArrayList<String> pictures = getStringArrayPref(getActivity(), nnModels.get(position).getNumber());
+            Log.d("print pictures for", nnModels.get(position).getName());
+            for(String p : pictures){
+                Log.d("print p",p);
+            }
             if(pictures.size() > 0){
                 holder.ivImage.setImageURI(Uri.parse(pictures.get(pictures.size()-1)));
             }
