@@ -42,21 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         OnCheckPermission();
 
-        //android-data-com.example.teset2/pictures 폴더 추가
-        String path = getExternalFilesDir(null) + "/Pictures/";
-        Log.d("path", path);
-        File dir = new File(path);
-        try{
-            if(!dir.exists()){
-                Log.d("생성전", "폴더아직없음 생성함이제");
-                if(dir.mkdirs() == false) Log.d("생성후", "생성실패");
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
-
         String from = getIntent().getStringExtra("from");
         if("GalleryDetailActivity".equals(from)){
             viewPager.setCurrentItem(2);
