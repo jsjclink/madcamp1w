@@ -2,6 +2,8 @@
 
 팀원: 정성재, 윤태영
 
+<img src="https://user-images.githubusercontent.com/37656383/177315647-2b56e692-2917-4271-95c5-c7c13676e771.png" width="400"> 
+
 github repo: https://github.com/jsjclink/madcamp1w
 
 * * *
