@@ -91,6 +91,7 @@ public class PhoneNumberDetailActivity extends AppCompatActivity {
                                 setStringArrayPref(this, nnModel.getNumber(),
                                         nnModel.getPictures());
                                 pictures.requestLayout();
+                                FirstTab.needRefresh = true;
                             }
                         });
 

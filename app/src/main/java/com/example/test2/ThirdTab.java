@@ -223,6 +223,7 @@ public class ThirdTab extends Fragment {
             // Refreshing second tab
             SecondTab.pictures.add(Uri.parse(file.toString()));
             SecondTab.needRefresh = true;
+            FirstTab.needRefresh = true;
 
             // If called from phone number detail activity, then the pictures is saved
             if (firstTabNumberString != null) {

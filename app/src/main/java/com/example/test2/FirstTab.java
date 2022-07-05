@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirstTab extends Fragment  {
     private static ArrayList<NameNumberModel> nnModels;
+    public static boolean needRefresh = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +42,15 @@ public class FirstTab extends Fragment  {
         v.findViewById(R.id.mCardView);
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (needRefresh) {
+            ((RecyclerView) getActivity().findViewById(R.id.mRecyclerView)).getAdapter().notifyDataSetChanged();
+            needRefresh = false;
+        }
     }
 
     public static FirstTab newInstance(String jsonString) {
