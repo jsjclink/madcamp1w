@@ -82,6 +82,8 @@ public class FirstTab extends Fragment  {
             ArrayList<String> pictures = getStringArrayPref(getActivity(), nnModels.get(position).getNumber());
             if(pictures.size() > 0){
                 holder.ivImage.setImageURI(Uri.parse(pictures.get(pictures.size()-1)));
+            } else {
+                holder.ivImage.setImageResource(R.drawable.man);
             }
             holder.itemView.setTag(position);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
