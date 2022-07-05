@@ -221,10 +221,12 @@ public class ThirdTab extends Fragment {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
+            // Refreshing second tab
+            SecondTab.pictures.add(Uri.parse(file.toString()));
+            SecondTab.needRefresh = true;
 
             // If called from phone number detail activity, then the pictures is saved
             if (firstTabNumberString != null) {
-                Log.d("hihi", firstTabNumberString);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = prefs.edit();
                 String json = prefs.getString(firstTabNumberString, null);
@@ -243,7 +245,6 @@ public class ThirdTab extends Fragment {
                     for (int i = 0; i < urls.size(); i++) {
                         a.put(urls.get(i));
                     }
-                    Log.d("nono", a.toString());
                     editor.putString(firstTabNumberString, a.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();

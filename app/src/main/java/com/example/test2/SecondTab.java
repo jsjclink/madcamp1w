@@ -27,6 +27,7 @@ import java.util.Locale;
 
 public class SecondTab extends Fragment {
     public static ArrayList<Uri> pictures;
+    public static boolean needRefresh = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,24 +90,10 @@ public class SecondTab extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((RecyclerView)getView().findViewById(R.id.Tab2RV)).getAdapter().notifyDataSetChanged();
-
-        //third tab 갔다가 돌아왔을 때 그 새로 그린거 추가되게
-        String path = Environment.getExternalStorageDirectory().toString() + "/Pictures";
-        File f = new File(path);
-
-        File[] files = f.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().toLowerCase(Locale.US).endsWith(".jpg");
-            }
-        });
-        for(File file : files){
-            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
-                    File.separator + "Pictures" + File.separator + file.getName() + File.separator);
-            if(!pictures.contains(uri)) pictures.add(uri);
+        if (needRefresh) {
+            ((RecyclerView)getActivity().findViewById(R.id.Tab2RV)).getAdapter().notifyDataSetChanged();
+            needRefresh = false;
         }
-
     }
 
     public static SecondTab newInstance() {
