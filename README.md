@@ -11,7 +11,7 @@ github repo: https://github.com/jsjclink/madcamp1w
 
 개발 언어 : Java
 개발 환경: Android Studio Chipmunk / 2021.2.1 Patch 1
-Minimum SDK: API 21- Android 5.0 (Lollipop)
+Minimum SDK: 29
 
 ```
 tab1(전화번호부)
