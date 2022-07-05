@@ -11,6 +11,8 @@ import android.graphics.Path;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import java.util.ArrayList;
 
 public class CustomView extends View {
@@ -41,6 +43,7 @@ public class CustomView extends View {
         //text 설정
         textPaint = new Paint();
         textPaint.setTextSize(50);
+        textPaint.setTypeface(ResourcesCompat.getFont(getContext(), R.font.spoqahansansneolight));
     }
 
     public void setPaintInfo(int color, float r){
