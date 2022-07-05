@@ -35,17 +35,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+
 public class ThirdTab extends Fragment {
     CustomView customView;
     FrameLayout stage;
     RadioGroup radioGroup;
-    RadioButton radioBtnBlack, radioBtnRed, radioBtnGreen, radioBtnBlue;
+    RadioButton radioBtnBlack, radioBtnRed, radioBtnGreen, radioBtnBlue, radioMy;
     SeekBar seekBar;
     Button btnClear, btnSave, btnBackground, btnUndo, btnRedo, btnAddText;
 
     int color = Color.BLACK;
     float r = 5f;
     String firstTabNumberString;
+
+    int tColor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,6 +96,7 @@ public class ThirdTab extends Fragment {
         radioBtnRed = v.findViewById(R.id.radioBtnRed);
         radioBtnGreen = v.findViewById(R.id.radioBtnGreen);
         radioBtnBlue = v.findViewById(R.id.radioBtnBlue);
+        radioMy = v.findViewById(R.id.radioMy);
         seekBar = v.findViewById(R.id.seekBar);
         btnClear = v.findViewById(R.id.clear);
         btnSave = v.findViewById(R.id.save);
@@ -118,10 +123,19 @@ public class ThirdTab extends Fragment {
                     case R.id.radioBtnBlue:
                         color = Color.BLUE;
                         break;
+                    case R.id.radioMy:
+                        openColorPicker();
+                        break;
                 }
                 seekBar.getThumb().setTint(color);
                 seekBar.getProgressDrawable().setTint(color);
                 customView.setPaintInfo(color, r * 2);
+            }
+        });
+        radioMy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openColorPicker();
             }
         });
 
@@ -192,6 +206,25 @@ public class ThirdTab extends Fragment {
                 dialog.show();
             }
         });
+    }
+
+    private void openColorPicker(){
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(getActivity(), tColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                ThirdTab.this.color = color;
+                ThirdTab.this.radioMy.getButtonDrawable().setTint(color);
+                seekBar.getThumb().setTint(color);
+                seekBar.getProgressDrawable().setTint(color);
+                customView.setPaintInfo(color, r*2);
+            }
+        });
+        colorPicker.show();
     }
 
     public static Bitmap getBitmapFromView(View view) {

@@ -45,4 +45,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     // This is for recyclerview selection
     implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
+
+    //colorpicker
+    dependencies { implementation 'com.github.yukuku:ambilwarna:2.0.1' }
 }

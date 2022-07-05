@@ -89,10 +89,12 @@
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seekBar">
 
@@ -103,6 +105,7 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:fontFamily="@font/spoqahansansneolight"
+                android:singleLine="true"
                 android:text="black"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -113,6 +116,7 @@
                 android:layout_weight="1"
                 android:buttonTint="@android:color/holo_red_dark"
                 android:fontFamily="@font/spoqahansansneolight"
+                android:singleLine="true"
                 android:text="red"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -123,6 +127,7 @@
                 android:layout_weight="1"
                 android:buttonTint="@android:color/holo_green_dark"
                 android:fontFamily="@font/spoqahansansneolight"
+                android:singleLine="true"
                 android:text="green"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -133,7 +138,19 @@
                 android:layout_weight="1"
                 android:buttonTint="@android:color/holo_blue_dark"
                 android:fontFamily="@font/spoqahansansneolight"
+                android:singleLine="true"
                 android:text="blue"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <RadioButton
+                android:id="@+id/radioMy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="@color/purple_200"
+                android:fontFamily="@font/spoqahansansneolight"
+                android:singleLine="true"
+                android:text="my"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </RadioGroup>
