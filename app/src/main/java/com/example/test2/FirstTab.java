@@ -81,10 +81,6 @@ public class FirstTab extends Fragment  {
             holder.tvNumber.setText(nnModels.get(position).getNumber());
 
             ArrayList<String> pictures = getStringArrayPref(getActivity(), nnModels.get(position).getNumber());
-            Log.d("print pictures for", nnModels.get(position).getName());
-            for(String p : pictures){
-                Log.d("print p",p);
-            }
             if(pictures.size() > 0){
                 holder.ivImage.setImageURI(Uri.parse(pictures.get(pictures.size()-1)));
             } else {

@@ -44,12 +44,13 @@ public class SecondTab extends Fragment {
                 return pathname.getName().toLowerCase(Locale.US).endsWith(".jpg");
             }
         });
-        for(File file : files){
-            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
-                    File.separator + "Pictures" + File.separator + file.getName() + File.separator);
-            pictures.add(uri);
+        if(files != null){
+            for(File file : files){
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath() +
+                        File.separator + "Pictures" + File.separator + file.getName() + File.separator);
+                pictures.add(uri);
+            }
         }
-
 
         View v = inflater.inflate(R.layout.second_tab, container, false);
 
