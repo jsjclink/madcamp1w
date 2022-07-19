@@ -2,7 +2,7 @@
 
 팀원: 
 
-정성재 (kaist), jsjclink@kaist.ac.kr
+정성재 (KAIST), jsjclink@kaist.ac.kr
 
 윤태영 (한양대학교), taeyoung210@hanyang.ac.kr
 
